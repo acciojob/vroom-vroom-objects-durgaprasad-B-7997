@@ -1,16 +1,52 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Car Inheritance Example</title>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+  <h1>Sports Car Info</h1>
 
+  <button onclick="showCarInfo()">Show Car Info</button>
+
+  <p id="makeModel"></p>
+  <p id="topSpeed"></p>
+
+  <script>
+    // Car Constructor
+    function Car(make, model) {
+      this.make = make;
+      this.model = model;
+    }
+
+    // Car prototype method
+    Car.prototype.getMakeModel = function () {
+      return `${this.make} ${this.model}`;
+    };
+
+    // SportsCar Constructor
+    function SportsCar(make, model, topSpeed) {
+      Car.call(this, make, model); // Inherit properties
+      this.topSpeed = topSpeed;
+    }
+
+    // Inherit Car prototype
+    SportsCar.prototype = Object.create(Car.prototype);
+    SportsCar.prototype.constructor = SportsCar;
+
+    // SportsCar prototype method
+    SportsCar.prototype.getTopSpeed = function () {
+      return this.topSpeed;
+    };
+
+    // Create a SportsCar instance
+    const car = new SportsCar("Ferrari", "Testarossa", 200);
+
+    // Display car information in HTML
+    function showCarInfo() {
+      document.getElementById("makeModel").textContent = "Make & Model: " + car.getMakeModel();
+      document.getElementById("topSpeed").textContent = "Top Speed: " + car.getTopSpeed() + " mph";
+    }
+  </script>
 </body>
-
 </html>
